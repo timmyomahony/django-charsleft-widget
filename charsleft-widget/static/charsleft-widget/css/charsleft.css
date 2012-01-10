@@ -1,0 +1,17 @@
+.charsleft{
+	height: 23px;
+}
+.charsleft > span{
+	vertical-align: middle;
+	margin-left: 0.5em;
+	color: #ccc;
+	line-height: 23px;
+}
+.charsleft span .count{
+	color: #333;
+}
+.charsleft .maxlength{
+	display: none;
+}
+.charsleft span .orange{color:#EA1300 !important;}
+.charsleft span .red{color: #D56F24 !important;}
