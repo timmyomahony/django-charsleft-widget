@@ -1,4 +1,4 @@
-![Screenshot](https://github.com/pastylegs/django-charsleft-widget/raw/master/charsleft-screen-small.jpg)
+![Screenshot](https://github.com/timmyomahony/django-charsleft-widget/blob/master/charsleft-screen-small.jpg?raw=true)
 
 
 A simple django widget that appends a character count to a text input which is determined by the `max_length` of that particular field. This only works on __text inputs__ and not __text areas__ (as they don't respect `max_length` anyway)
