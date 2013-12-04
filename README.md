@@ -50,8 +50,3 @@ or
 		if db_field.name is 'name':
 			kwargs['widget'] = CharsLeftInput
 		return super(ContentObjectAdmin,self).formfield_for_dbfield(db_field,**kwargs)
-
-self, **kwargs):
-        defaults = { 'widget' : CharsLeftInput }
-        kwargs.update(defaults)
-        return super(CustomModelField, self).formfield(**kwargs)
