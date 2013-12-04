@@ -13,7 +13,7 @@ There are a few ways of setting a widget for a form field
 	from django import forms
 	from charsleft_widget.widgets import CharsLeftInput
 	
-	class OhGreatLeader(forms.Form):
+	class ExampleForm(forms.Form):
 		name = forms.CharField(widget=CharsLeftInput())
 
 or
@@ -21,17 +21,17 @@ or
 	from django import forms
 	from charsleft_widget.widgets import CharsLeftInput
 	
-	class OhGreatLeader(forms.Form):
+	class ExampleForm(forms.Form):
 		name = forms.CharField()
 
 		def __init__(self, *args, *kwargs):
-			super(OhGreatLeader, self).__init__(*args, **kwargs)
+			super(ExampleForm, self).__init__(*args, **kwargs)
 			self.fields['name'].widget = CharsLeftInput
 
 ##### via admin.py #####
 
 	from django.contrib import admin
-	class OhGreatLeaderAdmin(admin.ModelAdmin):
+	class ExampleAdmin(admin.ModelAdmin):
 		# Use widget on all instances of this form field
 		formfield_overrides = {
         	models.TextField: {'widget': CharsLeftInput},
@@ -42,7 +42,7 @@ or
 or
 
 	from django.contrib import admin
-	class OhGreatLeaderAdmin(admin.ModelAdmin):
+	class ExampleAdmin(admin.ModelAdmin):
 		pass
 
 	# Use widget on particular instances of the form field
@@ -51,13 +51,7 @@ or
 			kwargs['widget'] = CharsLeftInput
 		return super(ContentObjectAdmin,self).formfield_for_dbfield(db_field,**kwargs)
 
-
-##### via a custom model field #####
-
-	class CustomModelField(models.CharField):
-		pass
-
-    def formfield(self, **kwargs):
+self, **kwargs):
         defaults = { 'widget' : CharsLeftInput }
         kwargs.update(defaults)
         return super(CustomModelField, self).formfield(**kwargs)
