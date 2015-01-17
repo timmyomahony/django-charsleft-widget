@@ -1,4 +1,4 @@
-jQuery(function($){
+(function($){  
 	
 	$.fn.charsLeft = function(options){
 	
@@ -40,4 +40,4 @@ jQuery(function($){
 		'source':'input',
 		'dest':".count",
 	});
-});
+});(django.jQuery);
