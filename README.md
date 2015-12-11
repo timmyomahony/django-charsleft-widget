@@ -10,43 +10,46 @@ There are a few ways of setting a widget for a form field
 
 ##### via forms.py #####
 
-	from django import forms
-	from charsleft_widget.widgets import CharsLeftInput
-	
-	class ExampleForm(forms.Form):
-		name = forms.CharField(widget=CharsLeftInput())
+  from django import forms
+  from charsleft_widget.widgets import CharsLeftInput
+  
+  class ExampleForm(forms.Form):
+    name = forms.CharField(widget=CharsLeftInput())
 
 or
 
-	from django import forms
-	from charsleft_widget.widgets import CharsLeftInput
-	
-	class ExampleForm(forms.Form):
-		name = forms.CharField()
+  from django import forms
+  from charsleft_widget.widgets import CharsLeftInput
+  
+  class ExampleForm(forms.Form):
+    name = forms.CharField()
 
-		def __init__(self, *args, *kwargs):
-			super(ExampleForm, self).__init__(*args, **kwargs)
-			self.fields['name'].widget = CharsLeftInput
+    def __init__(self, *args, *kwargs):
+      super(ExampleForm, self).__init__(*args, **kwargs)
+      self.fields['name'].widget = CharsLeftInput
 
 ##### via admin.py #####
 
-	from django.contrib import admin
-	class ExampleAdmin(admin.ModelAdmin):
-		# Use widget on all instances of this form field
-		formfield_overrides = {
-        	models.TextField: {'widget': CharsLeftInput},
-    	}
+  from django.contrib import admin
+  class ExampleAdmin(admin.ModelAdmin):
+    # Use widget on all instances of this form field
+    formfield_overrides = {
+          models.TextField: {'widget': CharsLeftInput()},
+      }
 
 
 
 or
 
-	from django.contrib import admin
-	class ExampleAdmin(admin.ModelAdmin):
-		pass
-
-	# Use widget on particular instances of the form field
-	def formfield_for_dbfield(self, db_field, **kwargs):
-		if db_field.name is 'name':
-			kwargs['widget'] = CharsLeftInput
-		return super(ContentObjectAdmin,self).formfield_for_dbfield(db_field,**kwargs)
+  from django.contrib import admin
+  from charsleft_widget.widgets import CharsLeftInput, MediaMixin
+  
+  # The MediaMixin is what loads the css and javascript only one time per admin page.
+  class MyModelAdmin(MediaMixin, admin.ModelAdmin):
+      pass
+  
+      # Use widget on particular instances of the form field
+      def formfield_for_dbfield(self, db_field, **kwargs):
+        if db_field.name is 'my_field_name':
+          kwargs['widget'] = CharsLeftInput(attrs={'size':'add normal attrs here, like field size numbers'})
+        return super(ContentObjectAdmin,self).formfield_for_dbfield(db_field,**kwargs)
