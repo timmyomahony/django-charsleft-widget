@@ -30,12 +30,14 @@ or
 
 ##### via admin.py #####
 
-  from django.contrib import admin
-  class ExampleAdmin(admin.ModelAdmin):
-    # Use widget on all instances of this form field
-    formfield_overrides = {
-          models.TextField: {'widget': CharsLeftInput()},
-      }
+    from django.contrib import admin
+    from charsleft_widget.widgets import CharsLeftInput, MediaMixin
+    
+    class ExampleAdmin(admin.ModelAdmin):
+      # Use widget on all instances of this form field
+      formfield_overrides = {
+           models.TextField: {'widget': CharsLeftInput()},
+         }
 
 
 
