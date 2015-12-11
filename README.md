@@ -33,7 +33,7 @@ or
     from django.contrib import admin
     from charsleft_widget.widgets import CharsLeftInput, MediaMixin
     
-    class ExampleAdmin(admin.ModelAdmin):
+    class ExampleAdmin(MediaMixin, admin.ModelAdmin):
       # Use widget on all instances of this form field
       formfield_overrides = {
            models.TextField: {'widget': CharsLeftInput()},
