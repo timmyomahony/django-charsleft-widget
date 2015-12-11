@@ -41,11 +41,11 @@ or
 
 or
 
-  from django.contrib import admin
-  from charsleft_widget.widgets import CharsLeftInput, MediaMixin
+    from django.contrib import admin
+    from charsleft_widget.widgets import CharsLeftInput, MediaMixin
   
-  # The MediaMixin is what loads the css and javascript only one time per admin page.
-  class MyModelAdmin(MediaMixin, admin.ModelAdmin):
+    # The MediaMixin is what loads the css and javascript only one time per admin page
+    class MyModelAdmin(MediaMixin, admin.ModelAdmin):
       pass
   
       # Use widget on particular instances of the form field
