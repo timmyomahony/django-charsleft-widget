@@ -2,7 +2,12 @@ from django import forms
 from django.utils.encoding import force_unicode
 from django.utils.safestring import mark_safe
 from django.utils.html import escape, conditional_escape
-from django.forms.util import flatatt
+try:
+    # Django >=1.7
+    from django.forms.utils import flatatt
+except ImportError:
+    # Django <1.7
+    from django.forms.util import flatatt
 
 class MediaMixin(object):
 	pass
