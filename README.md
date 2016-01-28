@@ -5,8 +5,6 @@ A simple django widget that appends a character count to a text input which is d
 
 ### Installation ###
 
-  * Be advised that the minimum Django has been set to 1.4.22 or higher.  If you have an older installation, fork and set the minimum level lower (not recommended!).
-
   The package can be installed via:
       
       pip install git+https://github.com/timmyomahony/django-charsleft-widget.git

@@ -11,12 +11,6 @@ setup(
     name='django-charsleft-widget',
     version=".".join(map(str, VERSION)),
     license='BSD License',
-    install_requires=[
-        'django>=1.4.22',
-    ],
-    requires=[
-        'Django (>=1.4.22)',
-    ],
     description='A django widget that displays a normal text input with a remaining character count beside it.',
     long_description=readme,
     author="Timmy O'Mahony",
