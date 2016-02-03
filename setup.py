@@ -14,7 +14,7 @@ setup(
     description='A django widget that displays a normal text input with a remaining character count beside it.',
     long_description=readme,
     author="Timmy O'Mahony",
-    author_email='timmy@pastylegs.com',
+    author_email='hey@timmyomahony.com',
     url='https://github.com/timmyomahony/django-charsleft-widget',
     packages=find_packages(),
     package_data = {
