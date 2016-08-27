@@ -3,6 +3,12 @@ from django.utils.encoding import force_unicode
 from django.utils.safestring import mark_safe
 from django.utils.html import escape, conditional_escape
 try:
+    # py2.x
+    from django.utils.encoding import force_unicode as force_str
+except ImportError:
+    # py3.x
+    from django.utils.encoding import force_text as force_str
+try:
     # Django >=1.7
     from django.forms.utils import flatatt
 except ImportError:
