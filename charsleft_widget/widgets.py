@@ -28,11 +28,11 @@ class CharsLeftInput(forms.TextInput, MediaMixin):
 			value = ''
 		final_attrs = self.build_attrs(attrs, type=self.input_type, name=name)
 		if value != '':
-			final_attrs['value'] = force_unicode(self._format_value(value))
+			final_attrs['value'] = force_str(self._format_value(value))
 		maxlength = final_attrs.get('maxlength',False)
 		if not maxlength:
 			return mark_safe(u'<input%s />'%flatatt(final_attrs))
-		current = force_unicode(int(maxlength) - len(value))
+		current = force_str(int(maxlength) - len(value))
 		html = u"""
 			<span class="charsleft charsleft-input">
 			<input %(attrs)s /> 
