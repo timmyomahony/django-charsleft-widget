@@ -35,7 +35,6 @@ class CharsLeftInput(forms.TextInput):
         if not maxlength:
             return mark_safe(u'<input%s />' % flatatt(final_attrs))
         current = force_str(int(maxlength) - len(value))
-        char_remain_str = _(u'characters remaining')
         html = u"""
             <span class="charsleft charsleft-input">
             <input %(attrs)s />
@@ -47,7 +46,7 @@ class CharsLeftInput(forms.TextInput):
         """ % {
             'attrs': flatatt(final_attrs),
             'current': current,
-            'char_remain_str': char_remain_str,
+            'char_remain_str': _(u'characters remaining'),
             'maxlength': int(maxlength),
         }
         return mark_safe(html)
