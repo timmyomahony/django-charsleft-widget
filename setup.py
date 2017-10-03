@@ -17,7 +17,7 @@ setup(
     author_email='hey@timmyomahony.com',
     url='https://github.com/timmyomahony/django-charsleft-widget',
     packages=find_packages(),
-    package_data = {
+    package_data={
         'charsleft_widget': [
         ],
     },
@@ -34,6 +34,7 @@ setup(
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.4',
+        'Programming Language :: Python :: 3.6',
         'Topic :: Internet :: WWW/HTTP',
         'Topic :: Internet :: WWW/HTTP :: Dynamic Content',        
     ],        
