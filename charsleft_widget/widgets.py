@@ -20,15 +20,18 @@ class MediaMixin(object):
     pass
 
     class Media:
-        css = {'screen': ('charsleft-widget/css/charsleft.css',), }
+        css = {'screen': ('charsleft-widget/css/charsleft.css',)}
         js = ('charsleft-widget/js/charsleft.js',)
 
 
-class CharsLeftInput(forms.TextInput):
+class CharsLeftInput(forms.TextInput, MediaMixin): 
+
     def render(self, name, value, attrs=None):
         if value is None:
             value = ''
-        final_attrs = self.build_attrs(attrs, type=self.input_type, name=name)
+        extra_attrs = {'type': self.input_type, 'name': name,
+                       'maxlength': self.attrs.get('maxlength')}
+        final_attrs = self.build_attrs(attrs, extra_attrs=extra_attrs)
         if value != '':
             final_attrs['value'] = force_str(self._format_value(value))
         maxlength = final_attrs.get('maxlength', False)
@@ -39,9 +42,8 @@ class CharsLeftInput(forms.TextInput):
             <span class="charsleft charsleft-input">
             <input %(attrs)s />
             <span>
-                <span class="count">%(current)s</span>
-                %(char_remain_str)s</span>
-            <span class="maxlength">%(maxlength)s</span>
+                <span class="count">%(current)s</span> %(char_remain_str)s</span>
+                <span class="maxlength">%(maxlength)s</span>
             </span>
         """ % {
             'attrs': flatatt(final_attrs),
