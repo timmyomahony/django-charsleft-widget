@@ -2,18 +2,18 @@
 
 A simple django widget that appends a character count to a text input which is determined by the `max_length` of that particular field. This only works on text *inputs* and not *text areas* (as they don't respect `max_length` anyway)
 
-##Installation
+## Installation
 
 The package can be installed via:
       
     pip install git+https://github.com/timmyomahony/django-charsleft-widget.git
   
 
-##Usage
+## Usage
 
 There are a few ways of setting a widget for a form field:
 
-###via forms.py
+### via `forms.py`
 
 ```python
 from django import forms
@@ -37,7 +37,7 @@ class ExampleForm(forms.Form):
     self.fields['name'].widget = CharsLeftInput
 ```
 
-### via admin.py #####
+### via `admin.py`
 
 ```python
 from django.contrib import admin

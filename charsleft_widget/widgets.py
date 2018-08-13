@@ -1,5 +1,6 @@
 from django import forms
 from django.utils.safestring import mark_safe
+from django.utils.translation import ugettext_lazy as _
 
 try:
     # py2.x
@@ -39,11 +40,15 @@ class CharsLeftInput(forms.TextInput, MediaMixin):
         current = force_str(int(maxlength) - len(value))
         html = u"""
             <span class="charsleft charsleft-input">
-            <input %(attrs)s /> 
-            <span><span class="count">%(current)s</span> characters remaining</span>
-            <span class="maxlength">%(maxlength)s</span>
+            <input %(attrs)s />
+            <span>
+                <span class="count">%(current)s</span> %(char_remain_str)s</span>
+                <span class="maxlength">%(maxlength)s</span>
             </span>
-        """ % {'attrs': flatatt(final_attrs),
-               'current': current,
-               'maxlength': int(maxlength)}
+        """ % {
+            'attrs': flatatt(final_attrs),
+            'current': current,
+            'char_remain_str': _(u'characters remaining'),
+            'maxlength': int(maxlength),
+        }
         return mark_safe(html)
