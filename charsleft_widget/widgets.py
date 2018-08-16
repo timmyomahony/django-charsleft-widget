@@ -1,4 +1,4 @@
-from django import forms
+from django import forms, VERSION
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 
@@ -15,28 +15,41 @@ except ImportError:
     # Django <1.7
     from django.forms.util import flatatt
 
+from charsleft_widget.utils import compatible_staticpath
 
-class MediaMixin(object):
-    pass
+
+class CharsLeftInput(forms.TextInput): 
 
     class Media:
-        css = {'screen': ('charsleft-widget/css/charsleft.css',)}
-        js = ('charsleft-widget/js/charsleft.js',)
+        css={
+            "all": ("charsleft-widget/css/charsleft.css", )
+        }
+        js=(compatible_staticpath("charsleft-widget/js/charsleft.js"), )
 
-
-class CharsLeftInput(forms.TextInput, MediaMixin): 
-
-    def render(self, name, value, attrs=None):
+    def render(self, name, value, attrs=None, **kwargs):
         if value is None:
             value = ''
-        extra_attrs = {'type': self.input_type, 'name': name,
-                       'maxlength': self.attrs.get('maxlength')}
-        final_attrs = self.build_attrs(attrs, extra_attrs=extra_attrs)
+
+        extra_attrs = {
+            'type': self.input_type,
+            'name': name,
+            'maxlength': self.attrs.get('maxlength')
+        }
+        
+        # Signature for build_attrs changed in 1.11
+        # https://code.djangoproject.com/ticket/28095
+        if VERSION < (1, 11):
+            final_attrs = self.build_attrs(attrs, **extra_attrs)
+        else:
+            final_attrs = self.build_attrs(attrs, extra_attrs=extra_attrs)
+
         if value != '':
             final_attrs['value'] = force_str(self._format_value(value))
+
         maxlength = final_attrs.get('maxlength', False)
         if not maxlength:
             return mark_safe(u'<input%s />' % flatatt(final_attrs))
+
         current = force_str(int(maxlength) - len(value))
         html = u"""
             <span class="charsleft charsleft-input">

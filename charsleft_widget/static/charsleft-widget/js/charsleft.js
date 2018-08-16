@@ -1,7 +1,5 @@
 (function($){  
-  
   $.fn.charsLeft = function(options){
-  
     var defaults = {  
       'source':'input',
       'dest':'.count',
@@ -12,11 +10,10 @@
       var remaining = maxlength - source.val().length;
       dest.html(remaining);
       /* Over 50%, change colour to orange */
-      p=(100*remaining)/maxlength;
-      console.log(p)
-      if(p<25){
+      p = (100 * remaining) / maxlength;
+      if(p < 25){
         dest.addClass('orange');
-      }else if(p<50){
+      }else if(p < 50){
         dest.addClass('red');
       }else{
         dest.removeClass('orange red');
