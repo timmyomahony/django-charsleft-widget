@@ -11,59 +11,44 @@ The package can be installed via:
 
 ## Usage
 
-There are a few ways of setting a widget for a form field:
+For the most common usage, first create a model:
 
-### via `forms.py`
+```python
+from django.db import models
+
+class Song(models.Model):
+  title = models.CharField(max_length=100)
+```
+
+then create a custom model form that uses the custom widget class. **Note that it's important
+to include the `maxlength` attribute manually when making use of the widget, as it will not
+be pulled in automatically from your model field.**
 
 ```python
 from django import forms
 from charsleft_widget.widgets import CharsLeftInput
-  
-class ExampleForm(forms.Form):
-  name = forms.CharField(widget=CharsLeftInput())
+
+from .models import Song
+
+class SongForm(forms.ModelForm):
+  name = forms.CharField(widget=CharsLeftInput(attrs={'maxlength': 100}))
+
+  class Meta:
+    model = Song
+    fields = "__all__"
 ```
 
-or
+If you are using it in the Django admin, import your custom model form in your `ModelAdmin`:
 
-```python
-from django import forms
-from charsleft_widget.widgets import CharsLeftInput
-  
-class ExampleForm(forms.Form):
-  name = forms.CharField()
-
-  def __init__(self, *args, *kwargs):
-    super(ExampleForm, self).__init__(*args, **kwargs)
-    self.fields['name'].widget = CharsLeftInput
-```
-
-### via `admin.py`
 
 ```python
 from django.contrib import admin
-from charsleft_widget.widgets import CharsLeftInput, MediaMixin
-    
-# The MediaMixin is what loads the css and javascript only one time per admin page
-class ExampleAdmin(MediaMixin, admin.ModelAdmin):
-  # Use widget on all instances of this form field
-  formfield_overrides = {
-    models.TextField: {'widget': CharsLeftInput()},
-  }
-```
 
-or
+from .models import Song
+from .forms import SongForm
 
-```python
-from django.contrib import admin
-from charsleft_widget.widgets import CharsLeftInput, MediaMixin
-  
-# The MediaMixin is what loads the css and javascript only one time per admin page
-class MyModelAdmin(MediaMixin, admin.ModelAdmin):
-  pass
-  
-  # Use widget on particular instances of the form field
-  def formfield_for_dbfield(self, db_field, **kwargs):
-    if db_field.name is 'my_field_name':
-      kwargs['widget'] = CharsLeftInput(attrs={'size':'add normal attrs here, like field size numbers'})
-    return super(ContentObjectAdmin,self).formfield_for_dbfield(db_field,**kwargs)
+
+@admin.register(Song)
+class SongAdmin(admin.ModelAdmin):
+    form = SongForm
 ```
