@@ -1,0 +1,4 @@
+include *.txt
+include *.md
+recursive-include charsleft_widget/static/ *.js *.css
+recursive-include charsleft_widget/locale/ *.mo *.po
